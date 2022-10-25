@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Empleado</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+
+        <div class="card">
+            <h:form id="menu-opciones">
+
+                <p:tabMenu activeIndex="#{param.i}" styleClass=".ui-tabmenu-nav">
+                    <p:menuitem value="Departamentos" outcome="index" icon="pi pi-fw pi-th-large">
+                        <f:param name="i" value="0"/>
+                    </p:menuitem>
+                    <p:menuitem value="Empleados" outcome="empleado" icon="pi pi-fw pi-user">
+                        <f:param name="i" value="1"/>
+                    </p:menuitem>
+                </p:tabMenu>
+
+            </h:form>
+        </div>
+
+        <h:form id="dt">
+            <p:spacer height="20"/>
+            <p:growl id="growl" showDetail="true" />
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Agregar"  onclick="PF('manageEmployeeDialog').show()" actionListener="#{empleadoBean.openNew()}"
+                                     id="btn-agregar" update="dt-employee " 
+                                     icon="pi pi-plus" styleClass="ui-button-success" style="margin-right: .5rem" >
+
+                    </p:commandButton>
+
+                </p:toolbarGroup>
+
+
+                <p:toolbarGroup align="right">
+
+
+                    <p:outputLabel id="textNexos" value="Nexos Software" style="font-style: italic; font-size: medium; font-weight: bold " ></p:outputLabel>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:spacer height="20"/>
+
+            <p:dataTable id="dt-employee" value="#{empleadoBean.empleados}" var="emp" widgetVar="dtEmployee1"
+                         reflow="true" styleClass="products-table"  rowSelectMode="add"
+                         paginator="true" rows="10"  paginatorPosition="bottom" rowKey="#{emp.id}"> 
+
+
+
+                <p:column headerText="Id">
+
+                    <p:outputLabel value="#{emp.id}" />
+                </p:column>
+                <p:column headerText="Tipo Doc">
+
+                    <p:outputLabel value="#{emp.tipoDocumento}"/>
+                </p:column>
+
+                <p:column headerText="#Documento">
+
+                    <p:outputLabel value="#{emp.numeroDocumento}"/>
+                </p:column>
+
+                <p:column headerText="Nombres">
+
+                    <p:outputLabel value="#{emp.nombres}"/>
+                </p:column>
+
+                <p:column headerText="Apellidos">
+
+                    <p:outputLabel value="#{emp.apellidos}"/>
+                </p:column>
+
+
+                <p:column headerText="Departamento">
+
+                    <p:outputLabel value="#{emp.nombreDepartamento}"/>
+                </p:column>
+
+                <p:column headerText="Ciudad">
+
+                    <p:outputLabel value="#{emp.ciudad}"/>
+                </p:column>
+
+                <p:column headerText="Dirección">
+
+                    <p:outputLabel value="#{emp.direccion}"/>
+                </p:column>
+
+                <p:column headerText="Correo">
+
+                    <p:outputLabel value="#{emp.correo}"/>
+                </p:column>
+
+                <p:column headerText="Telefono">
+
+                    <p:outputLabel value="#{emp.telefono}"/>
+                </p:column>
+
+                <p:column headerText="Creación">
+
+                    <p:outputLabel value="#{emp.fechaHoraCreacion}"/>
+                </p:column>
+
+                <p:column headerText="Modificación">
+
+                    <p:outputLabel value="#{emp.fechaHoraModificacion}"/>
+                </p:column>
+
+
+
+                <p:column exportable="false">
+
+                    <p:menuButton value="Opciones">
+
+                        <p:menuitem value="Actualizar" process="@this" update=":form-dialogs:employeeDialog" 
+                                    icon="pi pi-refresh" actionListener="#{empleadoBean.updateEmpleado(emp)}">
+                            <f:setPropertyActionListener value="#{emp}" target="#{empleadoBean.empleado}"/>
+                            <p:resetInput target=":form-dialogs:employeeDialog" />
+                        </p:menuitem>
+                        <p:menuitem value="Eliminar" actionListener="#{empleadoBean.deleteEmpleado(emp)}" update=":dt:dt-employee dt:growl" icon="pi pi-times"/>
+
+                    </p:menuButton>
+
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+
+        <h:form id="form-dialogs">
+            <p:dialog id="employeeDialog" header="Registro de nuevo empleado" showEffect="fade" responsive="true"
+                      widgetVar="manageEmployeeDialog" width="600" height="400" modal="true">
+
+                <p:outputPanel id="panel-employee-nuevo" class="ui-fluid">
+
+                    <div class="fiel">
+                        <p:outputLabel value="Tipo Documento"/>
+                        <p:selectOneMenu value="#{empleadoBean.empleado.tipoDocumento}" id="menu-tipoCC">
+                            <f:selectItem itemValue="RC" itemLabel="Registro Civil"/>
+                            <f:selectItem itemValue="TI" itemLabel="Tarjeta de identidad"/>
+                            <f:selectItem itemValue="CC" itemLabel="Cedula de Ciudadania"/>
+                            <f:selectItem itemValue="CE" itemLabel="Ceduala de extranjeria"/>
+                        </p:selectOneMenu>
+                    </div>
+
+
+
+                    <div class="field">
+                        <p:outputLabel for="input-codigo">Número documento</p:outputLabel>
+                        <p:inputText id="input-codigo" value="#{empleadoBean.empleado.numeroDocumento}" required="true" 
+                                     validatorMessage="Número de documento vacío" requiredMessage="Debe ingresar el número de documento"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="input-nombre">Nombres</p:outputLabel>
+                        <p:inputText id="input-nombre" value="#{empleadoBean.empleado.nombres}" required="true" 
+                                     validatorMessage="Nombre vacío" requiredMessage="Debe ingresar el nombre"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="input-apellido">Apellidos</p:outputLabel>
+                        <p:inputText id="input-apellido" value="#{empleadoBean.empleado.apellidos}" required="true" 
+                                     validatorMessage="Apellidos vacío" requiredMessage="Debe ingresar los apellidos"/>
+                    </div>
+
+
+                    <div class="fiel">
+                        <p:outputLabel value="Departamento"/>
+                        <p:selectOneMenu value="#{empleadoBean.empleado.nombreDepartamento}" id="menu-departamento">
+                            <f:selectItem itemValue="0" itemLabel="Seleccione"/>
+                            <f:selectItems value="#{empleadoBean.departamentos}"/>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="input-ciudad">Ciudad</p:outputLabel>
+                        <p:inputText id="input-ciudad" value="#{empleadoBean.empleado.ciudad}" required="true" 
+                                     validatorMessage="Ciudad vacío" requiredMessage="Debe ingresar la ciudad"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="input-direccion">Dirección</p:outputLabel>
+                        <p:inputText id="input-direccion" value="#{empleadoBean.empleado.direccion}" required="true" 
+                                     validatorMessage="Dirección vacío" requiredMessage="Debe ingresar la direccion"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="input-correo">Correo</p:outputLabel>
+                        <p:inputText id="input-correo" value="#{empleadoBean.empleado.correo}" required="true" 
+                                     validatorMessage="Correo vacío" requiredMessage="Debe ingresar el correo"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="input-telefono">Telefono</p:outputLabel>
+                        <p:inputText id="input-telefono" value="#{empleadoBean.empleado.telefono}" required="true" 
+                                     validatorMessage="Telefono vacío" requiredMessage="Debe ingresar el Telefono"/>
+                    </div>
+
+
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Guardar" icon="pi pi-check" update=":dt:dt-employee :dt:growl"
+                                     actionListener="#{empleadoBean.addEmpleado()}" onclick="PF('manageEmployeeDialog').hide()"
+                                     />
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageEmployeeDialog').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+
+            </p:dialog>
+
+
+        </h:form>
+
+
+    </h:body>
+</html>

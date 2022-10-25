@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Departamento</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+
+        <div class="card">
+            <h:form id="menu-opciones">
+
+                <p:tabMenu activeIndex="#{param.i}" styleClass=".ui-tabmenu-nav">
+                    <p:menuitem value="Departamentos" outcome="index" icon="pi pi-fw pi-th-large">
+                        <f:param name="i" value="0"/>
+                    </p:menuitem>
+                    <p:menuitem value="Empleados" outcome="empleado" icon="pi pi-fw pi-user">
+                        <f:param name="i" value="1"/>
+                    </p:menuitem>
+                </p:tabMenu>
+
+            </h:form>
+        </div>
+
+
+
+
+        <h:form id="dt">
+            <p:spacer height="20"/>
+            <p:growl id="growl" showDetail="true" />
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Agregar"  onclick="PF('manageDepartmentDialog').show()" actionListener="#{departamentoBean.openNew}"
+                                     id="btn-agregar" update="dt-department :form-dialogs:input-codigo 
+                                     :form-dialogs:input-nombre" icon="pi pi-plus" styleClass="ui-button-success" style="margin-right: .5rem" >
+
+                    </p:commandButton>
+
+                </p:toolbarGroup>
+
+
+                <p:toolbarGroup align="right">
+
+
+                    <p:outputLabel id="textNexos" value="Nexos Software" style="font-style: italic; font-size: medium; font-weight: bold " ></p:outputLabel>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:spacer height="20"/>
+
+            <p:dataTable id="dt-department" value="#{departamentoBean.departamentos}" var="dep" widgetVar="dtDepartment1"
+                         reflow="true" styleClass="products-table"  rowSelectMode="add"
+                         paginator="true" rows="10"  paginatorPosition="bottom" rowKey="#{dep.id}"> 
+
+
+
+                <p:column headerText="Id">
+
+                    <p:outputLabel value="#{dep.id}" />
+                </p:column>
+                <p:column headerText="Código">
+
+                    <p:outputLabel value="#{dep.codigo}"/>
+                </p:column>
+
+                <p:column headerText="Nombre">
+
+                    <p:outputLabel value="#{dep.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Fecha creación">
+
+                    <p:outputLabel value="#{dep.fechaHoraCreacion}"/>
+                </p:column>
+
+                <p:column headerText="Fecha modificación">
+
+                    <p:outputLabel value="#{dep.fechaHoraModificacion}"/>
+                </p:column>
+
+
+
+                <p:column exportable="false">
+
+                    <p:menuButton value="Opciones">
+
+                        <p:menuitem value="Actualizar" process="@this" update=":form-dialogs:departmentDialog" 
+                                    icon="pi pi-refresh" actionListener="#{departamentoBean.updateDepartamento(dep)}">
+                            <f:setPropertyActionListener value="#{dep}" target="#{departamentoBean.departamento}"/>
+                            <p:resetInput target=":form-dialogs:departmentDialog" />
+                        </p:menuitem>
+                        <p:menuitem value="Eliminar" actionListener="#{departamentoBean.deleteDepartamento(dep)}" update=":dt:dt-department dt:growl" icon="pi pi-times"/>
+
+                    </p:menuButton>
+
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+        <h:form id="form-dialogs">
+            <p:dialog id="departmentDialog" header="Registro de nuevo departamento" showEffect="fade" responsive="true"
+                      widgetVar="manageDepartmentDialog" width="600" height="150" modal="true">
+
+                <p:outputPanel id="panel-department-nuevo" class="ui-fluid">
+                    <div class="field">
+                        <p:outputLabel for="input-codigo">Código</p:outputLabel>
+                        <p:inputText id="input-codigo" value="#{departamentoBean.departamento.codigo}" required="true" 
+                                     validatorMessage="Código vacío" requiredMessage="Debe ingresar el codigo"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="input-nombre">Nombre</p:outputLabel>
+                        <p:inputText id="input-nombre" value="#{departamentoBean.departamento.nombre}" required="true" 
+                                     validatorMessage="Nombre vacío" requiredMessage="Debe ingresar el nombre"/>
+                    </div>
+
+
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Guardar" icon="pi pi-check" update=":dt:dt-department :dt:growl"
+                                     actionListener="#{departamentoBean.addDepartamento()}" onclick="PF('manageDepartmentDialog').hide()"
+                                     />
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageDepartmentDialog').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+
+            </p:dialog>
+
+
+            
+        </h:form>
+
+
+
+
+
+
+
+    </h:body>
+</html>
+

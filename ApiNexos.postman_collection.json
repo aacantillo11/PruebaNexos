@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "3b4c1a96-3942-4a2e-a908-13107730b5dc",
+		"name": "ApiNexos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17666880"
+	},
+	"item": [
+		{
+			"name": "Departamento",
+			"item": [
+				{
+					"name": "Obtener departamentos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "jsf*11alejo*Api_Rest",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "nexosClient",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8070/apinexos/departamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"departamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener departamento por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/apinexos/departamentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"departamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar departamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\":\"1001\",\r\n    \"nombre\":\"Logistica\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8070/apinexos/departamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"departamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Departamento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/apinexos/departamentos/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"departamentos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Departamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"codigo\":\"1000\",\r\n    \"nombre\":\"Ingenieria e Investigación\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8070/apinexos/departamentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"departamentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empleado",
+			"item": [
+				{
+					"name": "Obtener Empleados",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener empleado por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/apinexos/empleados/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"empleados",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar Empleado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoDocumento\":\"CC\",\r\n    \"numeroDocumento\":\"1065658799\",\r\n    \"nombres\":\"Carlos Julio\",\r\n    \"apellidos\":\"San Gil\",\r\n    \"ciudad\":\"Medellin\",\r\n    \"direccion\":\"Cr 45 # 67 sur\",\r\n    \"departamento\":{\r\n        \"id\":1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8070/apinexos/empleados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"empleados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Empleado",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8070/apinexos/empleados/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"empleados",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Empleado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoDocumento\": \"CC\",\r\n    \"numeroDocumento\": \"1065658799\",\r\n    \"nombres\": \"Carlos Julio\",\r\n    \"apellidos\": \"San Gil\",\r\n    \"ciudad\": \"Medellin\",\r\n    \"direccion\": \"Cr 45 # 67 sur\",\r\n    \"correo\": \"carlo@gmail.com\",\r\n    \"telefono\": \"3116589920\",\r\n    \"departamento\":{\r\n        \"id\":\"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8070/apinexos/empleados/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8070",
+							"path": [
+								"apinexos",
+								"empleados",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

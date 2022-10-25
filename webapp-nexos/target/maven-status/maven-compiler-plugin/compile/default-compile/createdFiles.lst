@@ -1,0 +1,13 @@
+com\alejo\com\webapp\nexos\domain\Departamento.class
+com\alejo\com\webapp\nexos\domain\Empleado.class
+com\alejo\com\webapp\nexos\repository\CrudRepositoryImpl.class
+com\alejo\com\webapp\nexos\util\AdministradorLog.class
+com\alejo\com\webapp\nexos\util\AdminitradorPropiedad.class
+com\alejo\com\webapp\nexos\service\ICrudService.class
+com\alejo\com\webapp\nexos\controller\EmpleadoBean.class
+com\alejo\com\webapp\nexos\repository\ICrudResopitory.class
+com\alejo\com\webapp\nexos\controller\DepartamentoBean.class
+com\alejo\com\webapp\nexos\ProducerResources.class
+com\alejo\com\webapp\nexos\service\DepartamentoServiceImpl.class
+com\alejo\com\webapp\nexos\util\WebLogger.class
+com\alejo\com\webapp\nexos\service\EmpleadoServiceImpl.class
